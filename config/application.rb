@@ -24,7 +24,6 @@ module TwitterEngage
     config.active_record.raise_in_transactional_callbacks = true
 
     #ok...
-    config.autoload_paths += %W(#{config.root}/controllers/requests_controller/request_controller.rb)
-
+    config.autoload_paths += %W(#{config.root}/app)
   end
 end

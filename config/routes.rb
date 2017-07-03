@@ -1,11 +1,13 @@
 Rails.application.routes.draw do
 
-  root 'requests#home'
+  root 'pages#welcome'
 
-  resources :requests
+  resources :pages
 
 
 
+  resources :dashboards
+  post 'dashboards/set_keywords' => 'dashboards#set_keywords', as: :set_keywords
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
