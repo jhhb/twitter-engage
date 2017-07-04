@@ -60,7 +60,7 @@ class TwitterService
     limit = 20
     @thread = Thread.new {
       twitter_client.filter(track: topics.join(",")) do |object|
-       puts object.text if object.is_a?(Twitter::Tweet)
+       #puts object.text if object.is_a?(Twitter::Tweet)
        @tweets << object
         # if @tweets.length > limit
         #   @tweets = []

@@ -1,3 +1,15 @@
-var jsonArray = (" <%= @json_tweets %>");
+var json = <%= raw (@single_tweet)  %>
 
-console.log(jsonArray);
+console.log(json);
+
+console.log(typeof json);
+
+console.log("hey " + JSON.parse(json));
+
+console.log(json);
+
+console.log(parsedJSON);
+
+
+
+

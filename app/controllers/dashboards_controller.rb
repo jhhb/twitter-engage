@@ -25,13 +25,14 @@ class DashboardsController < ApplicationController
   def get_tweets
 
     last_tweets = nil
-    @json_tweets = nil
+    @single_tweet = nil
     if TwitterService.thread_is_running?
       puts "In get tweets"
       puts "Twitter service thread is running"
       last_tweets = TwitterService.get_last_tweets
-      @json_tweets = last_tweets.map(&:attrs)
-      puts @json_tweets
+      @single_tweet = last_tweets.first.attrs.to_json #last_tweets.map(&:attrs).first
+
+      puts @single_tweet
 
       TwitterService.nullify_tweets
     else
