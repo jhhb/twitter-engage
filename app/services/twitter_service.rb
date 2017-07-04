@@ -2,8 +2,12 @@
 
 class TwitterService
 
-  @@keywords = nil
-  @@thread = nil
+  @keywords = nil
+  @thread = nil
+  @tweets = nil
+
+  @last_tweet_index = 0
+
   cattr_reader :twitter_client, instance_accessor: false do
     Twitter::Streaming::Client.new do |config|
       config.consumer_key        = Rails.application.secrets.TWITTER_CONSUMER_KEY
@@ -47,27 +51,43 @@ class TwitterService
   end
 
   def self.set_keywords(parsed_keywords)
-    @@keywords = parsed_keywords
+    @keywords = parsed_keywords
   end
 
   def self.run_with_keywords
-    topics = @@keywords
-    @@thread = Thread.new {
+    topics = @keywords
+    @tweets = []
+    limit = 20
+    @thread = Thread.new {
       twitter_client.filter(track: topics.join(",")) do |object|
        puts object.text if object.is_a?(Twitter::Tweet)
+       @tweets << object
+        # if @tweets.length > limit
+        #   @tweets = []
+        # end
       end
     }
   end
 
   def self.thread_is_running?
-    return @@thread != nil
+    return @thread != nil
   end
 
   def self.stop_thread
-    @@thread.exit
-    @@thread = nil
+    @thread.exit
+    @thread = nil
   end
 
+  #NOT THREAD SAFE
+  def self.get_last_tweets
+    puts "Tweets inspect in get_last_tweets: #{@tweets.inspect}"
+    tweets =  @tweets[@last_tweet_index, @tweets.length]
+   # @tweets = []
+    return tweets
+  end
 
+  def self.nullify_tweets
+    @tweets = []
+  end
 
 end

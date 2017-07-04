@@ -6,8 +6,11 @@ Rails.application.routes.draw do
 
 
 
+  get 'dashboards/get_tweets' => 'dashboards#get_tweets', as: :get_tweets
   resources :dashboards
   post 'dashboards/set_keywords' => 'dashboards#set_keywords', as: :set_keywords
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
