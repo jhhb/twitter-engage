@@ -2,7 +2,47 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.pre-scrollable {
-  height:600px;
-  max-height:600px;
+.tweetTime {
+  color:white;
+  font-size:90%;
+  padding-left:5px;
+  padding-right:0px;
+}
+#tweets-column
+{
+  position:absolute;
+  top:0px;
+  right:0px;
+  height:100%;
+  width:25%;
+  background-color:rgba(0,0,0, 0.7);
+  z-index: 100;
+  position: fixed;
+  overflow:auto;
+  overflow-x: hidden;
+}
+.tweetstream {
+  padding:0px;
+  height:100%;
+  width:100%;
+}
+.tweet {
+  width: 100%;
+  border-radius: 10px;
+  float: left;
+}
+.profilePic {
+  height: 50px;
+  width:50px;
+  margin-left:10px;
+}
+
+.text {
+  color:#fff;
+  margin:0px;
+  font-size:10px;
+  padding-left:5px;
+}
+.typeText{
+  font-size:75%;
 }

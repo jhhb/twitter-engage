@@ -25,15 +25,25 @@ class DashboardsController < ApplicationController
   def get_tweets
 
     last_tweets = nil
-    @single_tweet = nil
+    @single_tweet = []
+
+    @tweets = []
+
     if TwitterService.thread_is_running?
       puts "In get tweets"
       puts "Twitter service thread is running"
       last_tweets = TwitterService.get_last_tweets
-      @single_tweet = last_tweets.first.attrs.to_json #last_tweets.map(&:attrs).first
 
-      puts @single_tweet
+      last_tweets.each do |tweet|
+        @single_tweet.push(tweet.attrs.to_json)
+        @tweets.push(FrontEndTweet.new(tweet.attrs))
 
+        puts "Tweet first: #{@tweets.first.inspect}"
+        puts "Tweet first: #{@tweets.first.text}"
+
+      end
+
+     @single_tweet = last_tweets.first.attrs.to_json #last_tweets.map(&:attrs).first
       TwitterService.nullify_tweets
     else
       puts "Twitter service is not runnning.... Hm...."
