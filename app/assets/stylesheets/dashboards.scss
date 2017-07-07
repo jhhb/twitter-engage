@@ -2,30 +2,26 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+#tweets-column
+{
+  //position:absolute;
+  //top:0px;
+  //right:0px;
+  height:100%;
+  //width:25%;
+  z-index: 100;
+  //position: fixed;
+  overflow:auto;
+  overflow-x: hidden;
+}
+
 .tweetTime {
   color:white;
   font-size:90%;
   padding-left:5px;
   padding-right:0px;
 }
-#tweets-column
-{
-  position:absolute;
-  top:0px;
-  right:0px;
-  height:100%;
-  width:25%;
-  background-color:rgba(0,0,0, 0.7);
-  z-index: 100;
-  position: fixed;
-  overflow:auto;
-  overflow-x: hidden;
-}
-.tweetstream {
-  padding:0px;
-  height:100%;
-  width:100%;
-}
+
 .tweet {
   width: 100%;
   border-radius: 10px;
@@ -45,4 +41,45 @@
 }
 .typeText{
   font-size:75%;
+}
+
+.pre-scrollable {
+  min-height:600px !important;
+  max-height:600px !important;
+  overflow-y: scroll;
+  height:600px !important;
+}
+
+blockquote.twitter-tweet {
+  display: inline-block;
+  font-family: "Helvetica Neue", Roboto, "Segoe UI", Calibri, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 16px;
+  border-color: #eee #ddd #bbb;
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 1px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  margin: 10px 5px;
+  padding: 0 16px 16px 16px;
+  max-width: 468px;
+}
+
+blockquote.twitter-tweet p {
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 20px;
+}
+
+blockquote.twitter-tweet a {
+  color: #337ab7;
+  font-weight: normal;
+  text-decoration: none;
+  outline: 0 none;
+}
+
+blockquote.twitter-tweet a:hover,
+blockquote.twitter-tweet a:focus {
+  text-decoration: underline;
 }

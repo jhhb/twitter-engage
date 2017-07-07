@@ -1,15 +1,17 @@
-<div class="row tweet">
+<div class="row tweet" style="margin-top:4px; margin-left: 1%; margin-right: 1%; width:100%;">
   <img style="padding:0px;" src="<%= tweet.user_profile_image_url %>" class="col-xs-2 img-circle profilePic">
   <p>
-    <strong class="col-xs-4" style="padding-left:5px;padding-right:3px;color:white;">
-      <%= tweet.user_name %>
-    </strong>
-    <small class="col-xs-2" style="padding-left:5px;padding-right:0px">
-      <a href="Link to handle"><%=tweet.user_handle %></a>
-    </small>
-    <span class="col-xs-1 col-xs-offset-2 tweetTime">1m</span>
+    <span class="col-xs-1 col-xs-offset-2 tweetTime">time</span>
   </p>
   <p class="col-xs-10 col-xs-offset-2 text">
-    <%= tweet.text %>
+    <blockquote class="twitter-tweet">
+      <p><%= tweet.text %> </p>
+      <br/>
+      - <%= tweet.user_name %> ( <%= link_to tweet.user_handle, "https://twitter.com/#{tweet.user_handle}" %> )
+
+      <a href="https://twitter.com/intent/tweet?in_reply_to=<%= tweet.tweet_id %>>" class="btn btn-standard">Reply</a>
+      <a href="https://twitter.com/intent/retweet?tweet_id=<%= tweet.tweet_id %>" class="btn btn-standard">Retweet</a>
+      <a href="https://twitter.com/intent/like?tweet_id=<%= tweet.tweet_id %>" class="btn btn-standard">Like</a>
+    </blockquote>
   </p>
 </div>

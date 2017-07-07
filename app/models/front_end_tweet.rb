@@ -1,6 +1,6 @@
 class FrontEndTweet
 
-  attr_reader :text, :created_at, :user_id, :user_name, :user_handle, :user_location, :user_timestamp_ms, :user_profile_image_url
+  attr_reader :text, :created_at, :user_id, :user_name, :user_handle, :user_location, :user_timestamp_ms, :user_profile_image_url, :tweet_id
 
   def initialize(tweet_attrs)
     @text = tweet_attrs[:text]
@@ -11,6 +11,7 @@ class FrontEndTweet
     @user_location = tweet_attrs[:user][:location]
     @user_timestamp_ms = tweet_attrs[:timestamp_ms]
     @user_profile_image_url = tweet_attrs[:user][:profile_image_url]
+    @tweet_id = tweet_attrs[:id]
   end
 
 
