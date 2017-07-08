@@ -58,13 +58,29 @@ class TwitterService
     topics = @keywords
     @tweets = []
     limit = 20
+
+    hash = {}
+
     @thread = Thread.new {
       twitter_client.filter(track: topics.join(",")) do |object|
-       #puts object.text if object.is_a?(Twitter::Tweet)
-       @tweets << object
-        # if @tweets.length > limit
-        #   @tweets = []
-        # end
+
+        # filter_level: 'none'
+
+        myHash = {}
+
+        object.text.split.each do |word|
+          myHash[word] = 1
+        end
+
+        tweet_topic = nil
+
+        topics.each do |topic|
+          if myHash[topic] == 1
+            tweet_topic = topic
+          end
+        end
+
+        @tweets << [object, tweet_topic]
       end
     }
   end
@@ -82,7 +98,6 @@ class TwitterService
   def self.get_last_tweets
     puts "Tweets inspect in get_last_tweets: #{@tweets.inspect}"
     tweets =  @tweets[@last_tweet_index, @tweets.length]
-   # @tweets = []
     return tweets
   end
 

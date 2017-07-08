@@ -1,38 +1,5 @@
-//var json = <%= raw (@single_tweet)  %>;
-//
-//for (var i = 0; i < json.length; i++){
-//    console.log("Heyyyy");
-//    console.log(json[i]);
-//}
-
 var htmlForNewTweets = "<%= escape_javascript(render :partial => 'shared/tweet', collection: @tweets)%>";
 
 console.log(htmlForNewTweets);
 
 $("#tweets-column .content").prepend(htmlForNewTweets);
-
-
-
-
-
-
-
-
-//Idea no. 2: build custom "Json" on back end and render it in a partial on front end. Seems better actually.
-  //higher memory footprint, though.
-
-
-
-//console.log(json);
-
-//console.log("kets try parsing");
-
-//console.log("hey " + JSON.parse(json));
-
-//console.log(json);
-
-//console.log(parsedJSON);
-
-
-
-

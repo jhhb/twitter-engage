@@ -1,5 +1,18 @@
 console.log("got keywords");
 
+
+$("#checkboxes").empty();
+//set checkboxes with name and shit
+
+console.log("<%= @keywords %>")
+
+var htmlForCheckBoxes = "<%= escape_javascript(render partial: 'shared/keyword', collection: @keywords) %>"
+
+console.log(htmlForCheckBoxes);
+
+$("#checkboxes").append(htmlForCheckBoxes);
+
+
 window.setInterval(function(){
 
     $.ajax({
