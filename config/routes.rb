@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  require 'resque/server'
+
   root 'pages#welcome'
 
   resources :pages
@@ -10,6 +12,7 @@ Rails.application.routes.draw do
   resources :dashboards
   post 'dashboards/set_keywords' => 'dashboards#set_keywords', as: :set_keywords
 
+  mount Resque::Server.new, at: "/resque"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

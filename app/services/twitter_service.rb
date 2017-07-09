@@ -1,5 +1,8 @@
 # https://stackoverflow.com/questions/25595560/where-is-a-good-place-to-initialize-an-api
 
+require 'json'
+
+
 class TwitterService
 
   @keywords = nil
@@ -19,12 +22,49 @@ class TwitterService
 
   def self.handle_keywords(keywords)
     parsed_keywords = self.parse_keywords(keywords)
-    puts "1"
-    self.set_keywords(parsed_keywords)
-    puts "2"
-    self.run_with_keywords
-    puts "3"
+    #self.set_keywords(parsed_keywords)
+    #self.run_with_keywords
     return parsed_keywords
+  end
+
+  def self.get_n_tweets(n, keywords)
+    puts "Hello?"
+    limit = n
+    topics = keywords
+    tweets = []
+
+      twitter_client.filter(track: topics.join(",")) do |object|
+        puts "In twitter_client filter"
+        if limit == 0
+          break
+        end
+
+
+        myHash = {}
+
+        object.text.split.each do |word|
+          myHash[word] = 1
+        end
+
+        tweet_topic = nil
+
+        topics.each do |topic|
+          if myHash[topic] == 1
+            tweet_topic = topic
+          end
+        end
+
+        tweets << [object, "monkey"]
+
+        puts "limit: #{limit}"
+        limit -=1
+
+      end
+
+
+
+    return tweets
+
   end
 
   private
