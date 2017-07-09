@@ -15,7 +15,7 @@ class DashboardsController < ApplicationController
 
     puts "Keywords: #{@keywords}"
 
-    Resque.enqueue(Streamer,5, @keywords)
+    Resque.enqueue(Streamer,10, *@keywords)
 
     @@keywords = @keywords
 
@@ -30,35 +30,27 @@ class DashboardsController < ApplicationController
 
     @tweets = []
 
-    # if TwitterService.thread_is_running?
-    #   puts "Twitter service thread is running"
-    #
-    #   last_tweets = TwitterService.get_last_tweets
-    #
-    #   last_tweets.each do |tweet|
-    #     @tweets.push(FrontEndTweet.new(tweet[0].attrs, tweet[1]))
-    #
-    #   end
-    #   TwitterService.nullify_tweets
-    # else
-    #   puts "Twitter service is not runnning.... Hm...."
-    # end
+    if @@keywords
 
-    #tweets = JSON.parse(DataCache.get('tweets'))
+      tweets = JSON.load(DataCache.get('tweets'))
+      puts "start"
+      puts "end"
 
-    tweets = JSON.load(DataCache.get('tweets'))
-    puts "start"
-    puts "end"
-
-    Resque.enqueue( Streamer,5, @@keywords)
+      Resque.enqueue( Streamer,10, *@@keywords)
 
 
-    tweets.each do |tweet|
-      #puts tweet[0]
+      tweets.each do |tweet|
 
-      @tweets.push(FrontEndTweet.new(tweet[0], tweet[1]))
+        # puts tweet
+        # puts tweet.inspect
+
+        @tweets.push(FrontEndTweet.new(tweet[0], tweet[1]))
+
+      end
 
     end
+
+
 
     respond_to do |format|
       format.js

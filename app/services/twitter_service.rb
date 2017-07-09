@@ -28,39 +28,64 @@ class TwitterService
   end
 
   def self.get_n_tweets(n, keywords)
-    puts "Hello?"
     limit = n
+    puts "keywords: #{keywords}"
     topics = keywords
     tweets = []
 
-      twitter_client.filter(track: topics.join(",")) do |object|
+    joined_topics = topics.join(',')
+
+    puts joined_topics
+    puts joined_topics.class
+
+    topics = joined_topics.split(",")
+    puts "topics class: #{topics.class}   topics.class"
+
+      twitter_client.filter(filter_level: 'low', track: joined_topics ) do |object|
         puts "In twitter_client filter"
         if limit == 0
           break
         end
 
-
-        myHash = {}
-
-        object.text.split.each do |word|
-          myHash[word] = 1
-        end
-
-        tweet_topic = nil
+        tweet_topic = ""
 
         topics.each do |topic|
-          if myHash[topic] == 1
+          puts object.text.downcase
+          puts "topic: #{topic}"
+          if object.text.downcase.include?(topic)
             tweet_topic = topic
+            break
           end
         end
 
-        tweets << [object, "monkey"]
+        # myHash = {}
+        #
+        # object.text.split.each do |word|
+        #   myHash[word] = 1
+        # end
+        #
+        # puts "topics: #{topics}"
+        # puts "object.text: #{object.text.split}"
+        # puts "my hash : #{myHash}"
+        #
+        # tweet_topic = ""
+        #
+        # topics.each do |topic|
+        #   if myHash[topic] == 1
+        #     tweet_topic = topic
+        #   end
+        # end
 
-        puts "limit: #{limit}"
+        if tweet_topic == ""
+          puts "no topic obj: #{object}"
+        end
+
+        tweets << [object, tweet_topic]
+
         limit -=1
 
+        puts "tweet topic: #{tweet_topic}"
       end
-
 
 
     return tweets
