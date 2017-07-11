@@ -3,26 +3,16 @@ var collectionSize = "<%= @tweets.size %>";
 
 var htmlForNewTweets = "<%= escape_javascript(render :partial => 'shared/tweet', collection: @tweets)%>";
 
-console.log(htmlForNewTweets);
-
 $(".content").prepend(htmlForNewTweets);
 
 $("#tweets-column").find('.tweet').each(function(index) {           // .each(function(index) {
 
-    console.log("iterating tweets: " + index);
-
     if(index === collectionSize){
         return;
     }
-
-    console.log("this data: " + $(this).data('topic'));
     //if item is supposed to be shown, show it
-
     if($("#" + $(this).data('topic')).prop('checked')){
         $(this).removeClass('hidden');
     }
 
 });
-
-
-//TODO: Wait for rate limit to go away and make sure things get hidden when they appear and are shown if the filter is not

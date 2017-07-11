@@ -19,38 +19,4 @@ class FrontEndTweet
     @tweet_id = tweet_attrs["id"]
     @topic = topic
   end
-
-
-
-  # def text
-  #   @text
-  # end
-  #
-  # def created_at
-  #   @created_at
-  # end
-  #
-  # def user_id
-  #   @user_id
-  # end
-  #
-  # def user_name
-  #   @user_name
-  # end
-  #
-  # def user_screen_name
-  #   @user_screen_name
-  # end
-  #
-  # def user_location
-  #   @user_location
-  # end
-  #
-  # def user_timestamp_ms
-  #   @user_timestamp_ms
-  # end
-  #
-  # def user_profile_image_url
-  #   @user_profile_image_url
-  # end
 end

@@ -1,13 +1,8 @@
 $("#checkboxes").empty();
 
-console.log("<%= @keywords %>")
-
 var htmlForCheckBoxes = "<%= escape_javascript(render partial: 'shared/keyword', collection: @keywords) %>"
 
-console.log(htmlForCheckBoxes);
-
 $("#checkboxes").append(htmlForCheckBoxes);
-
 
 window.setInterval(function(){
 
@@ -21,15 +16,12 @@ window.setInterval(function(){
 
 $("#checkboxes").on("mousedown", "input", function(event){
 
-
     var id = event.target.id;
 
     if($("#" + id).prop('checked')) {
-        //$("." + id).hide();
         $("." + id).addClass('hidden');
     }
     else{
-        // $("." + id).show();
         $("." + id).removeClass('hidden');
     }
 
