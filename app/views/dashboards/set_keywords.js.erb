@@ -1,8 +1,4 @@
-console.log("got keywords");
-
-
 $("#checkboxes").empty();
-//set checkboxes with name and shit
 
 console.log("<%= @keywords %>")
 
@@ -22,3 +18,19 @@ window.setInterval(function(){
     })
 
 }, 10000);
+
+$("#checkboxes").on("mousedown", "input", function(event){
+
+
+    var id = event.target.id;
+
+    if($("#" + id).prop('checked')) {
+        //$("." + id).hide();
+        $("." + id).addClass('hidden');
+    }
+    else{
+        // $("." + id).show();
+        $("." + id).removeClass('hidden');
+    }
+
+})

@@ -12,15 +12,10 @@ class DashboardsController < ApplicationController
   def set_keywords
 
     @keywords = TwitterService.handle_keywords(dashboard_params[:keywords])
-
-    puts "Keywords: #{@keywords}"
-
     Resque.enqueue(Streamer,10, *@keywords)
-
     @@keywords = @keywords
 
     respond_to do |format|
-      #need to put filters up, show realtime tweets.
       format.js
     end
 
@@ -31,26 +26,14 @@ class DashboardsController < ApplicationController
     @tweets = []
 
     if @@keywords
-
       tweets = JSON.load(DataCache.get('tweets'))
-      puts "start"
-      puts "end"
-
       Resque.enqueue( Streamer,10, *@@keywords)
 
-
       tweets.each do |tweet|
-
-        # puts tweet
-        # puts tweet.inspect
-
         @tweets.push(FrontEndTweet.new(tweet[0], tweet[1]))
-
       end
 
     end
-
-
 
     respond_to do |format|
       format.js
@@ -60,9 +43,8 @@ class DashboardsController < ApplicationController
 
   private
 
-  def dashboard_params
-    params.require(:dashboard).permit(:keywords)
-  end
-
+    def dashboard_params
+      params.require(:dashboard).permit(:keywords)
+    end
 
 end
