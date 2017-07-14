@@ -1,13 +1,10 @@
 <div id="<%=tweet.tweet_id%>" class="row tweet hidden <%=tweet.topic%> " data-topic="<%=tweet.topic%>" style="margin-top:4px; margin-left: 1%; margin-right: 1%; width:100%;">
   <img style="padding:0px;" src="<%= tweet.user_profile_image_url %>" class="img-circle profilePic">
-  <p>
-    <span class="col-xs-1 col-xs-offset-2 tweetTime">time</span>
-  </p>
   <p class="col-xs-10 col-xs-offset-2 text">
     <blockquote class="twitter-tweet">
-      <p><%= tweet.text %> </p>
+      <p class="tweet-text"><%= tweet.text %> </p>
       <br/>
-      - <%= tweet.user_name %> ( <%= link_to tweet.user_handle, "https://twitter.com/#{tweet.user_handle}" %> )
+      <p class="user-info" data-user-name="<%=tweet.user_name%>" data-user-handle="<%=tweet.user_handle%>">- <%= tweet.user_name %> ( <%= link_to tweet.user_handle, "https://twitter.com/#{tweet.user_handle}" %> ) </p>
       <hr/>
       <a href="https://twitter.com/intent/tweet?in_reply_to=<%= tweet.tweet_id %>>" class="btn btn-standard">Reply</a>
       <a href="https://twitter.com/intent/retweet?tweet_id=<%= tweet.tweet_id %>" class="btn btn-standard" style="color:#17bf63">Retweet</a>
@@ -32,20 +29,52 @@
       initializeListeners();
   }
 
-  function initializeListeners(){
+  function getTweetData(id) {
+      var $tweet = $("#" + id);
+
+      var tweetText = $tweet.find(".tweet-text").text();
+      var userInfo= $tweet.find(".user-info");
+      var userName = userInfo.data("user-name");
+      var userHandle = userInfo.data("user-handle");
+      var topic = $tweet.data("topic");
+
+      var dataObject = {
+          "text": tweetText,
+          "user_name": userName,
+          "user_handle": userHandle,
+          "topic": topic
+      };
+
+      return dataObject;
+  }
+
+  function initializeListeners() {
       console.log("in initialize listeners");
-      $(".tweet").on("click", ".discard", function(event) {
+      $(".tweet").unbind().on("click", ".discard", function(event) {
           console.log(this);
           console.log($(this));
           var idToRemove = $(this).data('tweet-id');
           $("#" + idToRemove).remove();
           console.log("will delete " + idToRemove + " from dashboard");
-      });
+      })
 
-      $(".tweet").on("click", ".save", function(event) {
+      $(".tweet").unbind().on("click", ".save", function(event) {
           var idToPersist = $(this).data('tweet-id');
-          console.log("will persist " + idToPersist + " to DB");
-      });
+          var tweetData = getTweetData(idToPersist);
+
+          console.log(tweetData);
+
+          $("#" + idToPersist).remove();
+
+          $.ajax({
+              url: "/tweets/save",
+              dataType: "script",
+              method: "POST",
+              data: {
+                  tweet: tweetData
+              }
+          });
+      })
   }
 
 </script>

@@ -14,6 +14,14 @@ Rails.application.routes.draw do
 
   mount Resque::Server.new, at: "/resque"
 
+  resources :tables
+
+  post 'tweets/save' => 'tweets#save', as: :tweet
+
+  resources :tweets do
+
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

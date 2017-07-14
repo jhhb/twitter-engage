@@ -31,12 +31,7 @@ class TwitterService
 
     joined_topics = topics.join(',')
 
-    puts joined_topics
-    puts joined_topics.class
-
     topics = joined_topics.split(",")
-
-    puts "topics class: #{topics.class}   topics.class"
 
     sleep(2.seconds)
 
@@ -56,13 +51,6 @@ class TwitterService
             break
           end
         end
-
-
-        puts "Object start"
-
-        #print_tweet(object)
-
-        puts "Object end"
 
         # This currently filters all retweets / replies
         if tweet_topic
