@@ -17,7 +17,7 @@
 
 
 window.addEventListener("load", function(){
-    sorttable();
+     sorttable();
 })
 
 // sorttable.js library

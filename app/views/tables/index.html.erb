@@ -9,16 +9,16 @@
         </button>
         <ul class="dropdown-menu" aria-labelledby="data-dropdown-filter">
           <li>
-            <a href="tables/filter/25">25</a>
+            <a href="/tables/filter/25">25</a>
           </li>
           <li>
-            <a href="tables/filter/50">50</a>
+            <a href="/tables/filter/50">50</a>
           </li>
           <li>
-            <a href="tables/filter/100">100</a>
+            <a href="/tables/filter/100">100</a>
           </li>
           <li>
-            <a href="tables/filter/250">250</a>
+            <a href="/tables/filter/250">250</a>
           </li>
         </ul>
       </div>
@@ -29,17 +29,22 @@
     </div>
     <div class="col-xs-8 pages">
       <ul class="pagination">
-        <li>
-          <a href="/">Previous</a>
-        </li>
-        <% (@total_tweets / @tweets_per_page.to_f).ceil.times do |i| %>
+        <% if @page_number && @page_number > 1 %>
             <li>
-              <a href="/<%=i+1%>"><%= i + 1 %></a>
+              <a href="/tables/filter/<%=@tweets_per_page%>/paginate/<%=@page_number - 1 %>">Prev</a>
             </li>
         <% end %>
-        <li>
-          <a href="/">Next</a>
-        </li>
+        <% if @page_number && @tweets.length == @tweets_per_page %>
+            <li>
+              <a href="/tables/filter/<%=@tweets_per_page%>/paginate/<%=@page_number + 1 %>">Next</a>
+            </li>
+        <% end %>
+
+        <% (@total_tweets / @tweets_per_page.to_f).ceil.times do |i| %>
+            <li>
+              <a href="/tables/filter/<%=@tweets_per_page%>/paginate/<%=i+1%>"><%= i + 1 %></a>
+            </li>
+        <% end %>
       </ul>
     </div>
   </div>

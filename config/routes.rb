@@ -3,26 +3,21 @@ Rails.application.routes.draw do
   require 'resque/server'
 
   root 'pages#welcome'
-
-  resources :pages
-
-
+  get 'pages/about' => 'pages#about', as: :about
+  get 'pages/contact' => 'pages#contact', as: :contact
 
   get 'dashboards/get_tweets' => 'dashboards#get_tweets', as: :get_tweets
-  resources :dashboards
   post 'dashboards/set_keywords' => 'dashboards#set_keywords', as: :set_keywords
+  resources :dashboards
 
   mount Resque::Server.new, at: "/resque"
 
+  get 'tables/filter/:number_of_results' => 'tables#filter', as: :filter
+  get 'tables/filter/:number_of_results/paginate/:page_number' => 'tables#filter', as: :paginate
   resources :tables
 
-  post 'tables/filter/:number' => 'tables/#filter', as: :filter
-
   post 'tweets/save' => 'tweets#save', as: :tweet
-
-  resources :tweets do
-
-  end
+  resources :tweets
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -11,10 +11,8 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery_ujs
 //= require jquery.turbolinks
-//= require turbolinks
-//= require_tree ./sitewide
+//= require jquery_ujs
 //= require bootstrap-sprockets
-//= require tables/tables.js
+//= require_tree ./sitewide
 //= require shared/sorttable.js
