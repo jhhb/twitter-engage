@@ -16,6 +16,8 @@ Rails.application.routes.draw do
 
   resources :tables
 
+  post 'tables/filter/:number' => 'tables/#filter', as: :filter
+
   post 'tweets/save' => 'tweets#save', as: :tweet
 
   resources :tweets do

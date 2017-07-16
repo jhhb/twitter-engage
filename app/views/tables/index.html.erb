@@ -1,9 +1,50 @@
 
 <div class="container">
-  <h2>
-    Saved tweets
-  </h2>
-  <table class="table table-striped sortable">
+  <div class="row">
+    <div class="col-xs-3 limit">
+      <div class="dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" id="data-dropdown-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          Number of Results
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="data-dropdown-filter">
+          <li>
+            <a href="tables/filter/25">25</a>
+          </li>
+          <li>
+            <a href="tables/filter/50">50</a>
+          </li>
+          <li>
+            <a href="tables/filter/100">100</a>
+          </li>
+          <li>
+            <a href="tables/filter/250">250</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col-xs-1 space">
+
+    </div>
+    <div class="col-xs-8 pages">
+      <ul class="pagination">
+        <li>
+          <a href="/">Previous</a>
+        </li>
+        <% (@total_tweets / @tweets_per_page.to_f).ceil.times do |i| %>
+            <li>
+              <a href="/<%=i+1%>"><%= i + 1 %></a>
+            </li>
+        <% end %>
+        <li>
+          <a href="/">Next</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <table id="tweet-table" class="table table-striped sortable">
     <thead>
     <tr>
       <th>Topic</th>
@@ -18,40 +59,19 @@
     </thead>
 
     <tbody>
+    <% @tweets.each do |tweet| %>
       <tr>
-        <td>Trump</td>
-        <td>Full Text</td>
-        <td>Yes</td>
-        <td>No</td>
-        <td>No</td>
-        <td>My user name</td>
-        <td>Chicago, Illinois</td>
-        <td>Profile Link goes here</td>
+        <td><%=tweet.topic%></td>
+        <td><%=tweet.text%></td>
+        <td><%=tweet.liked%></td>
+        <td><%=tweet.replied%></td>
+        <td><%=tweet.retweeted%></td>
+        <td><%=tweet.user_name%></td>
+        <td><%=tweet.user_location%></td>
+        <td><%=tweet.profile_link%></td>
       </tr>
-
-      <tr>
-        <td>Trump</td>
-        <td>afadsfdsafafasd!!!!!</td>
-        <td>Yes</td>
-        <td>No</td>
-        <td>No</td>
-        <td>My user name</td>
-        <td>Chicago, Illinois</td>
-        <td>Profile Link goes here</td>
-      </tr>
+    <% end %>
     </tbody>
   </table>
 
-  <div class="row">
-    <div class="col-xs-3 limit">
-      <p>Limit 25,50,100, 250</p>
-    </div>
-
-    <div class="col-xs-1 space">
-
-    </div>
-    <div class="col-xs-8 pages">
-      pages go here for pagination
-    </div>
-  </div>
 </div>

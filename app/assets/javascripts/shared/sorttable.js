@@ -16,9 +16,9 @@
  */
 
 
-$(document).ready(function(){
+window.addEventListener("load", function(){
     sorttable();
-});
+})
 
 // sorttable.js library
 // https://stackoverflow.com/questions/31483823/sort-table-data-by-columns-in-rails-with-bootstrap

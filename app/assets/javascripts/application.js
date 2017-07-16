@@ -14,5 +14,7 @@
 //= require jquery_ujs
 //= require jquery.turbolinks
 //= require turbolinks
-//= require_tree .
+//= require_tree ./sitewide
 //= require bootstrap-sprockets
+//= require tables/tables.js
+//= require shared/sorttable.js
