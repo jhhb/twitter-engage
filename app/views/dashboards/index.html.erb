@@ -8,7 +8,7 @@
         <%= form_for :dashboard, url: set_keywords_path do |form| %>
             <div class="form-group">
               <%= form.text_area :keywords, class: "form-control" %>
-
+              <%= form.hidden_field :key, :value => "#{rand(36**10).to_s(36)}" %>
             </div>
             <%= form.submit "Submit keywords", class: "btn btn-primary" %>
         <% end %>
@@ -28,7 +28,8 @@
 
   </div>
 
-
+  <div id="key" style="display:none;" data-key="">
+  </div>
 </div>
 
 <script>
@@ -41,7 +42,7 @@
   };
 
   //https://stackoverflow.com/questions/6723334/submit-form-in-rails-3-in-an-ajax-way-with-jquery
-  function initializeListeners(){
+  function initializeListeners() {
       $('form').submit(function(event) {
           event.preventDefault();
 

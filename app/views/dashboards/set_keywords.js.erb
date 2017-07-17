@@ -4,12 +4,21 @@ var htmlForCheckBoxes = "<%= escape_javascript(render partial: 'shared/keyword',
 
 $("#checkboxes").append(htmlForCheckBoxes);
 
-window.setInterval(function(){
+var key = "<%= @key %>";
 
+$("#key").data("key", key);
+
+window.setInterval(function(){
+    console.log(key);
     $.ajax({
         type: "GET",
         url: '/dashboards/get_tweets', //sumbits it to the given url of the form
-        dataType: "script" // you want a difference between normal and ajax-calls, and json is standard
+        dataType: "script", // you want a difference between normal and ajax-calls, and json is standard
+        data: {
+            dashboard: {
+                key: $("#key").data("key")
+            }
+        }
     })
 
 }, 10000);

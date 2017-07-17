@@ -9,11 +9,15 @@ class Streamer
   def self.perform(*args)
 
     n = args[0]
-    keywords = args.slice(1, args.length)
+    keywords = args.slice(1, args.length - 1 )
 
-    puts "keywords in streamer : #{keywords}"
+    key = args.last
 
-    DataCache.set('tweets', TwitterService.get_n_tweets(n, keywords).to_json)
+    unless DataCache.data.exists(key)
+      DataCache.set(key + "-topics", keywords)
+    end
+
+    DataCache.set(key, TwitterService.get_n_tweets(n, keywords).to_json)
   end
 end
 
