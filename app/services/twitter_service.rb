@@ -26,17 +26,17 @@ class TwitterService
 
   def self.get_n_tweets(n, keywords)
     limit = n
-    topics = keywords
+    puts keywords.inspect
+
     tweets = []
 
-    joined_topics = topics.join(',')
+    joined_topics = keywords.join(',')
 
     topics = joined_topics.split(",")
 
     sleep(2.seconds)
 
       twitter_client.filter(filter_level: 'low', track: joined_topics ) do |object|
-        puts "In twitter_client filter"
         if limit == 0
           break
         end
@@ -44,8 +44,6 @@ class TwitterService
         tweet_topic = nil
 
         topics.each do |topic|
-          puts object.text.downcase
-          puts "topic: #{topic}"
           if object.text.downcase.include?(topic)
             tweet_topic = topic
             break
@@ -58,7 +56,6 @@ class TwitterService
           limit -=1
         end
       end
-
 
     return tweets
 
@@ -84,7 +81,6 @@ class TwitterService
       no_spaces.each_with_index do |keyword, index|
         no_spaces[index] = keyword.strip
       end
-
       return no_spaces
     end
 

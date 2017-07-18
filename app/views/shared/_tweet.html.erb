@@ -49,32 +49,36 @@
   }
 
   function initializeListeners() {
-      console.log("in initialize listeners");
-      $(".tweet").unbind().on("click", ".discard", function(event) {
-          console.log(this);
-          console.log($(this));
-          var idToRemove = $(this).data('tweet-id');
-          $("#" + idToRemove).remove();
-          console.log("will delete " + idToRemove + " from dashboard");
-      })
 
-      $(".tweet").unbind().on("click", ".save", function(event) {
-          var idToPersist = $(this).data('tweet-id');
-          var tweetData = getTweetData(idToPersist);
+      $(".tweet").unbind().on("click", "button", function(event) {
+          console.log("clicking");
+          if( $(event.target).hasClass('save')){
 
-          console.log(tweetData);
+              var idToPersist = $(this).data('tweet-id');
+              var tweetData = getTweetData(idToPersist);
 
-          $("#" + idToPersist).remove();
+              console.log(tweetData);
 
-          $.ajax({
-              url: "/tweets/save",
-              dataType: "script",
-              method: "POST",
-              data: {
-                  tweet: tweetData
-              }
-          });
+              $("#" + idToPersist).remove();
+
+              $.ajax({
+                  url: "/tweets/save",
+                  dataType: "script",
+                  method: "POST",
+                  data: {
+                      tweet: tweetData
+                  }
+              });
+
+          }
+
+          else if( $(event.target).hasClass('discard')){
+              var idToRemove = $(this).data('tweet-id');
+              $("#" + idToRemove).remove();
+              console.log("will delete " + idToRemove + " from dashboard");
+          }
+
+
       })
   }
-
 </script>

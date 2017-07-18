@@ -3,11 +3,6 @@ class FrontEndTweet
   attr_reader :text, :created_at, :user_id, :user_name, :user_handle, :user_location, :user_timestamp_ms, :user_profile_image_url, :tweet_id, :topic
 
   def initialize(tweet_attrs, topic)
-
-    puts tweet_attrs.class
-
-    puts "topic: #{topic}"
-
     @text = tweet_attrs["text"]
     @created_at = tweet_attrs["created_at"]
     @user_id = tweet_attrs["user"]["id"]

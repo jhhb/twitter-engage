@@ -6,18 +6,18 @@ require 'json'
 class Streamer
   @queue = :stream
 
-  def self.perform(*args)
+  def self.perform(n, keywords, key, caller)
 
-    n = args[0]
-    keywords = args.slice(1, args.length - 1 )
+    #If the key does not exist already, set the key topics
+    unless DataCache.exists(key)
+      DataCache.set_topics(key, keywords.to_json)
+    end
 
-    key = args.last
-
-    unless DataCache.data.exists(key)
-      DataCache.set(key + "-topics", keywords)
+    #If we are polling tweets
+    if caller == 1
+      keywords = JSON.parse(keywords)
     end
 
     DataCache.set(key, TwitterService.get_n_tweets(n, keywords).to_json)
   end
 end
-
