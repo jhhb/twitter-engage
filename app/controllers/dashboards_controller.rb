@@ -13,12 +13,12 @@ class DashboardsController < ApplicationController
 
     @keywords = TwitterService.handle_keywords(dashboard_params[:keywords])
 
-    count = Resque::Job.destroy("stream", Streamer)
+    Sidekiq::Queue.new.clear
+
     DataCache.delete_key(@key)
 
-    puts "DESTROYED #{count}"
-
-    Resque.enqueue(Streamer,10, @keywords, @key, 0)
+    StreamWorker.perform_async(10, @keywords, @key, 0)
+    #Resque.enqueue(Streamer,10, @keywords, @key, 0)
 
     respond_to do |format|
       format.js
@@ -36,7 +36,9 @@ class DashboardsController < ApplicationController
       tweets = JSON.load(DataCache.get(@key))
       @keywords = DataCache.get_topics(@key)
 
-      Resque.enqueue( Streamer,10, @keywords, @key, 1)
+      StreamWorker.perform_async(10, @keywords, @key, 1)
+
+      #Resque.enqueue( Streamer,10, @keywords, @key, 1)
 
       tweets.each do |tweet|
         @tweets.push(FrontEndTweet.new(tweet[0], tweet[1]))
@@ -54,5 +56,4 @@ class DashboardsController < ApplicationController
     def dashboard_params
       params.require(:dashboard).permit(:keywords, :key)
     end
-
 end

@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  require 'sidekiq/web'
   require 'resque/server'
 
   root 'pages#welcome'
@@ -11,6 +12,7 @@ Rails.application.routes.draw do
   resources :dashboards
 
   mount Resque::Server.new, at: "/resque"
+  mount Sidekiq::Web => "/sidekiq"
 
   get 'tables/filter/:number_of_results' => 'tables#filter', as: :filter
   get 'tables/filter/:number_of_results/paginate/:page_number' => 'tables#filter', as: :paginate
