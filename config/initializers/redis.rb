@@ -1,33 +1,6 @@
-class DataCache
-  def self.data
-    @data ||= Redis.new(host: 'localhost', port: 6379)
-  end
+#config/initializers/redis.rb
+REDIS_CONFIG = YAML.load( File.open( Rails.root.join("config/redis.yml") ) ).symbolize_keys
+dflt = REDIS_CONFIG[:default].symbolize_keys
+cnfg = dflt.merge(REDIS_CONFIG[Rails.env.to_sym].symbolize_keys) if REDIS_CONFIG[Rails.env.to_sym]
 
-  def self.set(key, value)
-    self.data.set(key, value)
-  end
-
-  def self.get(key)
-    self.data.get(key)
-  end
-
-  def self.get_i(key)
-    self.data.get(key).to_i
-  end
-
-  def self.exists(key)
-    self.data.exists(key)
-  end
-
-  def self.get_topics(key)
-    self.data.get(key + '-topics')
-  end
-
-  def self.set_topics(key, value)
-   self.data.set(key + '-topics', value)
-  end
-
-  def self.delete_key(key)
-    self.data.del(key)
-  end
-end
+$redis = Redis.new(cnfg)
