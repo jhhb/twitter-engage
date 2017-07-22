@@ -12,10 +12,10 @@ class TwitterService
 
   cattr_reader :twitter_client, instance_accessor: false do
     Twitter::Streaming::Client.new do |config|
-      config.consumer_key        = Rails.application.secrets.TWITTER_CONSUMER_KEY
-      config.consumer_secret     = Rails.application.secrets.TWITTER_CONSUMER_KEY_SECRET
-      config.access_token        = Rails.application.secrets.TWITTER_ACCESS_TOKEN
-      config.access_token_secret = Rails.application.secrets.TWITTER_ACCESS_TOKEN_SECRET
+      config.consumer_key        = ENV["TWITTER_CONSUMER_KEY"] #Rails.application.secrets.TWITTER_CONSUMER_KEY
+      config.consumer_secret     = ENV["TWITTER_CONSUMER_KEY_SECRET"] #TWITTER_CONSUMER_KEY_SECRET
+      config.access_token        = ENV["TWITTER_ACCESS_TOKEN"]    #Rails.application.secrets.TWITTER_ACCESS_TOKEN
+      config.access_token_secret = ENV["TWITTER_ACCESS_TOKEN_SECRET"] #Rails.application.secrets.TWITTER_ACCESS_TOKEN_SECRET
     end
   end
 

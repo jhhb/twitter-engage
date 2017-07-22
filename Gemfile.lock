@@ -108,6 +108,7 @@ GEM
       mini_portile2 (~> 2.2.0)
     pg (0.21.0)
     public_suffix (2.0.5)
+    puma (3.9.1)
     rack (1.6.8)
     rack-protection (1.5.3)
       rack
@@ -219,6 +220,7 @@ DEPENDENCIES
   jquery-rails
   jquery-turbolinks
   pg
+  puma
   rails (= 4.2.3)
   resque
   sass-rails (~> 5.0)
