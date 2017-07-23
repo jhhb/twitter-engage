@@ -1,7 +1,7 @@
 class StreamWorker
   include Sidekiq::Worker
 
-  sidekiq_options retry: false
+  sidekiq_options retry: true
 
   def perform(n, keywords, key, caller)
     puts "Running sidekiq worker"
