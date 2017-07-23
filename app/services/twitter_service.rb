@@ -16,6 +16,11 @@ class TwitterService
       config.consumer_secret     = ENV["TWITTER_CONSUMER_KEY_SECRET"] #TWITTER_CONSUMER_KEY_SECRET
       config.access_token        = ENV["TWITTER_ACCESS_TOKEN"]    #Rails.application.secrets.TWITTER_ACCESS_TOKEN
       config.access_token_secret = ENV["TWITTER_ACCESS_TOKEN_SECRET"] #Rails.application.secrets.TWITTER_ACCESS_TOKEN_SECRET
+      puts "configs"
+      puts config.consumer_key
+      puts config.consumer_secret
+      puts config.access_token
+      puts config.access_token_secret
     end
   end
 
