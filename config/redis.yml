@@ -1,14 +1,14 @@
 #config/redis.yml
 default:
-  host: localhost
-  port: 6379
-development:
   db: 0
-#  namespace: appname_dev
+  url: "redis://redistogo:489f40db777c4111d01857542dee5b2e@barreleye.redistogo.com:11277"
+  #host: localhost
+  #port: 6379
+development:
+  #namespace: appname_dev
 test:
-  db: 1
-#  namespace: appname_test
+  #namespace: appname_test
 production:
-  db: 2
-  host: 192.168.1.100
-#  namespace: appname_prod
+  db: 0
+  url: "redis://redistogo:489f40db777c4111d01857542dee5b2e@barreleye.redistogo.com:11277/"
+  #namespace: appname_prod
