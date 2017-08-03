@@ -61,7 +61,6 @@ class TwitterService
           limit -=1
         end
       end
-
     return tweets
 
   end

@@ -10,15 +10,23 @@ Things you may want to cover:
 * System dependencies
 
 * Configuration
-
-* Database creation
-
+	development:
+		redis-server
+		scripts/sidekiq.rb
+		rails s
+	production:
+		Procfile
 * Database initialization
 
 * How to run the test suite
 
 * Services (job queues, cache servers, search engines, etc.)
-
+	development:
+		-sidekiq, run locally through scripts/sidekiq.rb
+		-redis
+	production:
+		-redis2go on heroku
+		-sidekiq (runs on workers)
 * Deployment instructions
 
 * ...

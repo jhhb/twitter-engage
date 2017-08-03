@@ -13,7 +13,8 @@ class DashboardsController < ApplicationController
 
     @keywords = TwitterService.handle_keywords(dashboard_params[:keywords])
 
-    Sidekiq::Queue.new.clear
+
+    #Sidekiq::Queue.new.clear
 
     $redis.del(@key)
 
