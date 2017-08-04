@@ -1,7 +1,7 @@
 <script type="text/javascript" async src="https://platform.twitter.com/widgets.js"></script>
 
-<div class="container">
-  <div class="row">
+<div class="container" style="width:98%;margin-left:2%;" >
+  <div class="row" style="width:100%;">
     <div class="col-xs-5">
       <div class="row">
       Enter as many keywords as you would like (comma-separated)
@@ -10,11 +10,15 @@
               <%= form.text_area :keywords, class: "form-control" %>
               <%= form.hidden_field :key, :value => "#{rand(36**10).to_s(36)}" %>
             </div>
-            <%= form.submit "Submit keywords", class: "btn btn-primary" %>
+            <%= form.submit "Submit keywords", class: "btn btn-primary"  %>
         <% end %>
 
       </div>
-      <div id="checkboxes" class="row">
+      <div id="checkboxes" class="row" style="margin-top:2%;">
+        <div class="well">
+          <h4>Keywords</h4>
+            <p>Click to enable or disable tweets matching the keyword</p>
+        </div>
 
       </div>
 
@@ -23,6 +27,7 @@
     <div id="tweets-column" class="col-xs-6 pre-scrollable" style="border: solid #212121 1px;background-color:#f8f8f8;">
 
       <div class="content">
+
       </div>
     </div>
 

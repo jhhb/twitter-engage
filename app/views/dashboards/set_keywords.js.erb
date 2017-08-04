@@ -1,8 +1,8 @@
-$("#checkboxes").empty();
+$("#checkboxes .checkbox").empty();
 
 var htmlForCheckBoxes = "<%= escape_javascript(render partial: 'shared/keyword', collection: @keywords) %>"
 
-$("#checkboxes").append(htmlForCheckBoxes);
+$("#checkboxes .well").append(htmlForCheckBoxes);
 
 var key = "<%= @key %>";
 
