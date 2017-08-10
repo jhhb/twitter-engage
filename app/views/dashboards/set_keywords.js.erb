@@ -1,4 +1,7 @@
-$("#checkboxes .checkbox").empty();
+//$("#checkboxes .checkbox").empty();
+
+$(".checkbox").remove();
+
 
 var htmlForCheckBoxes = "<%= escape_javascript(render partial: 'shared/keyword', collection: @keywords) %>"
 
@@ -32,6 +35,7 @@ $("#checkboxes").on("mousedown", "input", function(event){
     }
     else{
         $("." + id).removeClass('hidden');
+        $("." + id).addClass('shown');
     }
 
 })

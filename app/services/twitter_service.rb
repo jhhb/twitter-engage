@@ -29,6 +29,34 @@ class TwitterService
     return parsed_keywords
   end
 
+  def self.get_and_set_tweets(keywords, key)
+
+    tweets = []
+
+    joined_topics = keywords.join(',')
+
+    topics = joined_topics.split(",")
+
+    sleep(2.seconds)
+
+    twitter_client.filter(filter_level: 'low', track: joined_topics ) do |object|
+
+      tweet_topic = nil
+
+      topics.each do |topic|
+        if object.text.downcase.include?(topic)
+          tweet_topic = topic
+          break
+        end
+      end
+
+      # This currently filters all retweets / replies
+      if tweet_topic
+        $redis.lpush(key, [object, tweet_topic].to_json)
+      end
+    end
+  end
+
   def self.get_n_tweets(n, keywords)
     limit = n
     puts keywords.inspect
@@ -66,11 +94,6 @@ class TwitterService
   end
 
   private
-
-    def self.print_tweet(tweet_object)
-      puts tweet.attrs.inspect
-    end
-
     def self.parse_keywords(keywords)
 
       #get into a list

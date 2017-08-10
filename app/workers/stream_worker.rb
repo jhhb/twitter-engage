@@ -1,8 +1,6 @@
 class StreamWorker
   include Sidekiq::Worker
 
-  sidekiq_options retry: true
-
   def perform(n, keywords, key, caller)
     puts "Running sidekiq worker"
 
@@ -14,7 +12,8 @@ class StreamWorker
     if caller == 1
       keywords = JSON.parse(keywords)
     end
-
-    $redis.set(key, TwitterService.get_n_tweets(n, keywords).to_json)
+    TwitterService.get_and_set_tweets(keywords, key)
+    puts $redis.llen(key)
+   # $redis.set(key, TwitterService.get_n_tweets(n, keywords).to_json)
   end
 end

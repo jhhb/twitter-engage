@@ -13,9 +13,6 @@ class DashboardsController < ApplicationController
 
     @keywords = TwitterService.handle_keywords(dashboard_params[:keywords])
 
-
-    #Sidekiq::Queue.new.clear
-
     $redis.del(@key)
 
     StreamWorker.perform_async(10, @keywords, @key, 0)
@@ -32,16 +29,15 @@ class DashboardsController < ApplicationController
 
     @key = dashboard_params[:key]
 
-    if $redis.exists(@key)
-      tweets = JSON.load($redis.get(@key))
+    tweets = $redis.lrange(@key, 0, 10)
+    #$redis.del(@key)
+    $redis.ltrim(@key, 10, $redis.llen(@key) )
 
-      @keywords = $redis.get(@key + "-topics")
+    @keywords = $redis.get(@key + "-topics")
 
-      StreamWorker.perform_async(10, @keywords, @key, 1)
-
-      tweets.each do |tweet|
-        @tweets.push(FrontEndTweet.new(tweet[0], tweet[1]))
-      end
+    tweets.each do |tweet|
+      json_tweet = JSON.load(tweet)
+      @tweets.push(FrontEndTweet.new(json_tweet[0], json_tweet[1]))
     end
 
     respond_to do |format|
