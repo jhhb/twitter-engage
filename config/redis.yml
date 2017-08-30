@@ -6,4 +6,4 @@ test:
   #namespace: appname_test
 production:
   db: 0
-  url: <%= ENV["REDIS_URL"] %>
+  url: "redis://redistogo:489f40db777c4111d01857542dee5b2e@barreleye.redistogo.com:11277"
