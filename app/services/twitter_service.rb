@@ -32,8 +32,6 @@ class TwitterService
 
     topics = joined_topics.split(",")
 
-    sleep(2.seconds)
-
     twitter_client.filter(filter_level: 'low', track: joined_topics ) do |object|
 
       tweet_topic = nil

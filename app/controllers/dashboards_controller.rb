@@ -19,6 +19,7 @@ class DashboardsController < ApplicationController
     # We delete the session key because we are going to be overwriting it with new Tweets with new keywords
     $redis.del(@key)
 
+    # Run a stream with given keywords and session key
     StreamWorker.perform_async(@keywords, @key)
 
     respond_to do |format|
@@ -26,17 +27,16 @@ class DashboardsController < ApplicationController
     end
 
   end
-
+  # Summary:  This method marshals gets tweets out of redis, removes the tweets from the redis list,
+  #           loads each into a JSON object that then gets moved into a FrontEndTweet object to more easily
+  #           consume the data in the front end.
   def get_tweets
-
     @tweets = []
-
     @key = dashboard_params[:key]
 
     tweets = $redis.lrange(@key, 0, 10)
-    $redis.ltrim(@key, 10, $redis.llen(@key) )
 
-    @keywords = $redis.get(@key + "-topics")
+    $redis.ltrim(@key, 10, $redis.llen(@key) )
 
     tweets.each do |tweet|
       json_tweet = JSON.load(tweet)
