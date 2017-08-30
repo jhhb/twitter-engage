@@ -4,12 +4,6 @@ require 'json'
 
 class TwitterService
 
-  @keywords = nil
-  @thread = nil
-  @tweets = nil
-
-  @last_tweet_index = 0
-
   cattr_reader :twitter_client, instance_accessor: false do
     Twitter::Streaming::Client.new do |config|
       config.consumer_key        = ENV["TWITTER_CONSUMER_KEY"] #Rails.application.secrets.TWITTER_CONSUMER_KEY
@@ -25,11 +19,7 @@ class TwitterService
   end
 
   def self.get_and_set_tweets(keywords, key)
-
-    tweets = []
-
     joined_topics = keywords.join(',')
-
     topics = joined_topics.split(",")
 
     twitter_client.filter(filter_level: 'low', track: joined_topics ) do |object|
@@ -43,47 +33,12 @@ class TwitterService
         end
       end
 
-      # This currently filters all retweets / replies
+      # This currently filters all retweets / replies, because these Tweets can have the topic in them but
+      # not saved into the text field
       if tweet_topic
         $redis.lpush(key, [object, tweet_topic].to_json)
       end
     end
-  end
-
-  def self.get_n_tweets(n, keywords)
-    limit = n
-    puts keywords.inspect
-
-    tweets = []
-
-    joined_topics = keywords.join(',')
-
-    topics = joined_topics.split(",")
-
-    sleep(2.seconds)
-
-      twitter_client.filter(filter_level: 'low', track: joined_topics ) do |object|
-        if limit == 0
-          break
-        end
-
-        tweet_topic = nil
-
-        topics.each do |topic|
-          if object.text.downcase.include?(topic)
-            tweet_topic = topic
-            break
-          end
-        end
-
-        # This currently filters all retweets / replies
-        if tweet_topic
-          tweets << [object, tweet_topic]
-          limit -=1
-        end
-      end
-    return tweets
-
   end
 
   private
@@ -103,9 +58,4 @@ class TwitterService
       end
       return no_spaces
     end
-
-    def self.set_keywords(parsed_keywords)
-      @keywords = parsed_keywords
-    end
-
 end

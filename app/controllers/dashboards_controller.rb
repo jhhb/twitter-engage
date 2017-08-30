@@ -27,6 +27,7 @@ class DashboardsController < ApplicationController
     end
 
   end
+
   # Summary:  This method marshals gets tweets out of redis, removes the tweets from the redis list,
   #           loads each into a JSON object that then gets moved into a FrontEndTweet object to more easily
   #           consume the data in the front end.
