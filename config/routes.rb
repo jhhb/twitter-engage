@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   get 'dashboards/get_tweets' => 'dashboards#get_tweets', as: :get_tweets
   post 'dashboards/set_keywords' => 'dashboards#set_keywords', as: :set_keywords
-  resources :dashboards
+  get 'dashboards/show_user_dashboard' => 'dashboards#show_user_dashboard', as: :show_user_dashboard
 
   mount Resque::Server.new, at: "/resque"
   mount Sidekiq::Web => "/sidekiq"
