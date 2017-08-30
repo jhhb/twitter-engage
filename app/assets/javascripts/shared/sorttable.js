@@ -15,6 +15,11 @@
  This basically means: do what you want with it.
  */
 
+/* Sorttable is used so that I can make my table in the data-save view sortable by different columns.
+
+   Before using Sorttable, you must make sure to enable jquery-turbolinks
+ */
+
 
 window.addEventListener("load", function(){
      sorttable();
