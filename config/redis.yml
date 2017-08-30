@@ -6,4 +6,4 @@ test:
   #namespace: appname_test
 production:
   db: 0
-  url: ENV["REDISTOGO_URL"]
+  url: URI.parse(URI.encode(ENV["REDISTOGO_URL"]))
