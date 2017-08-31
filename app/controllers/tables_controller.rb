@@ -1,7 +1,7 @@
 class TablesController < ApplicationController
 
   # Load the first n tweets on the page (25 by default)
-  def index
+  def show_table
     @tweets_per_page = 25
     @total_tweets = Tweet.all.count
     @tweets = Tweet.first(@tweets_per_page)
@@ -28,7 +28,7 @@ class TablesController < ApplicationController
 
     @page_number = page_number
 
-    render 'index'
+    render 'show_table'
   end
 
   private

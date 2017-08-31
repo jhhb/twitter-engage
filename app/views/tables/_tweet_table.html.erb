@@ -1,0 +1,29 @@
+<table id="tweet-table" class="table table-striped sortable">
+  <thead>
+  <tr>
+    <th>Topic</th>
+    <th>Text</th>
+    <th>Liked</th>
+    <th>Replied</th>
+    <th>Retweeted</th>
+    <th>User Name</th>
+    <th>User Location</th>
+    <th>Profile Link</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @tweets.each do |tweet| %>
+      <tr>
+        <td><%=tweet.topic%></td>
+        <td><%=tweet.text%></td>
+        <td><%=tweet.liked%></td>
+        <td><%=tweet.replied%></td>
+        <td><%=tweet.retweeted%></td>
+        <td><%=tweet.user_name%></td>
+        <td><%=tweet.user_location%></td>
+        <td><%=tweet.profile_link%></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

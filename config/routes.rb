@@ -16,8 +16,7 @@ Rails.application.routes.draw do
 
   get 'tables/filter/:number_of_results' => 'tables#filter', as: :filter
   get 'tables/filter/:number_of_results/paginate/:page_number' => 'tables#filter', as: :paginate
-  resources :tables
-
+  get 'tables/show_table' => 'tables#show_table', as: :show_table
   post 'tweets/save' => 'tweets#save', as: :tweet
   resources :tweets
 

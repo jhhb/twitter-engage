@@ -12,6 +12,14 @@ A user can save or discard the tweet, and they can also interact
 with the tweet. By saving a tweet, they can access the Tweet
 data in a table view in the app.
 
+## Where can I see the app?
+
+You can see a version of the app here: https://jb-twitter-dashboard.herokuapp.com/
+
+You'll notice the UI is pretty meh right now.
+
+App also takes 10+ seconds to load because Heroku shuts down when it hasn't been used in awhile.
+
 ## Running the app
 
 * Versions + configuration settings
@@ -31,6 +39,8 @@ data in a table view in the app.
 
 * Test code (Anyone who can give pointers on how to do that for
 this kind of app, I'd appreciate it).
+
+* Delete a job when you start a new one with the same session key
 
 * Automatically adjusting the rate of Twitter queries.
 

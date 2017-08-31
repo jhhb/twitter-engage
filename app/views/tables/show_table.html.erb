@@ -1,4 +1,3 @@
-
 <div class="container">
   <div class="row">
     <div class="col-xs-3 limit">
@@ -8,6 +7,7 @@
           <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" aria-labelledby="data-dropdown-filter">
+          <!-- Each of these hit the controller and make a new filter call -->
           <li>
             <a href="/tables/filter/25">25</a>
           </li>
@@ -23,23 +23,20 @@
         </ul>
       </div>
     </div>
-
     <div class="col-xs-1 space">
-
     </div>
     <div class="col-xs-8 pages">
       <ul class="pagination">
-        <% if @page_number && @page_number > 1 %>
+        <% if show_prev %>
             <li>
               <a href="/tables/filter/<%=@tweets_per_page%>/paginate/<%=@page_number - 1 %>">Prev</a>
             </li>
         <% end %>
-        <% if @page_number && @tweets.length == @tweets_per_page %>
+        <% if show_next %>
             <li>
               <a href="/tables/filter/<%=@tweets_per_page%>/paginate/<%=@page_number + 1 %>">Next</a>
             </li>
         <% end %>
-
         <% (@total_tweets / @tweets_per_page.to_f).ceil.times do |i| %>
             <li>
               <a href="/tables/filter/<%=@tweets_per_page%>/paginate/<%=i+1%>"><%= i + 1 %></a>
@@ -48,35 +45,5 @@
       </ul>
     </div>
   </div>
-
-  <table id="tweet-table" class="table table-striped sortable">
-    <thead>
-    <tr>
-      <th>Topic</th>
-      <th>Text</th>
-      <th>Liked</th>
-      <th>Replied</th>
-      <th>Retweeted</th>
-      <th>User Name</th>
-      <th>User Location</th>
-      <th>Profile Link</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    <% @tweets.each do |tweet| %>
-      <tr>
-        <td><%=tweet.topic%></td>
-        <td><%=tweet.text%></td>
-        <td><%=tweet.liked%></td>
-        <td><%=tweet.replied%></td>
-        <td><%=tweet.retweeted%></td>
-        <td><%=tweet.user_name%></td>
-        <td><%=tweet.user_location%></td>
-        <td><%=tweet.profile_link%></td>
-      </tr>
-    <% end %>
-    </tbody>
-  </table>
-
+  <%= render 'tables/tweet_table', locals: {tweets: @tweets} %>
 </div>

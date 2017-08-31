@@ -8,29 +8,25 @@
         <%= form_for :dashboard, url: set_keywords_path do |form| %>
             <div class="form-group">
               <%= form.text_area :keywords, class: "form-control" %>
+              <!-- We recreate a key for each form submission so that we can simply treat
+              A user who changes keywords as another / new user -->
               <%= form.hidden_field :key, :value => "#{rand(36**10).to_s(36)}" %>
             </div>
-            <%= form.submit "Submit keywords", class: "btn btn-primary"  %>
+            <%= form.submit "Submit keywords", class: "btn btn-primary" %>
         <% end %>
-
       </div>
       <div id="checkboxes" class="row" style="margin-top:2%;">
         <div class="well">
           <h4>Keywords</h4>
             <p>Click to enable or disable tweets matching the keyword</p>
         </div>
-
       </div>
-
     </div>
     <div class="col-xs-1"></div>
     <div id="tweets-column" class="col-xs-6 pre-scrollable" style="border: solid #212121 1px;background-color:#f8f8f8;">
-
       <div class="content">
-
       </div>
     </div>
-
   </div>
 
   <div id="key" style="display:none;" data-key="">
@@ -50,8 +46,6 @@
   function initializeListeners() {
       $('form').submit(function(event) {
           event.preventDefault();
-
-          console.log("Hi");
           var valuesToSubmit = $(this).serialize();
           $.ajax({
               type: "POST",
@@ -61,5 +55,4 @@
           })
       });
   };
-
 </script>

@@ -18,10 +18,12 @@ class TwitterService
     return parsed_keywords
   end
 
+  # Summary: tracks keywords and pushes them into a Redis list
   def self.get_and_set_tweets(keywords, key)
     joined_topics = keywords.join(',')
     topics = joined_topics.split(",")
 
+    # Set filter_level: 'low' to get a lot of tweets. TODOs: experiment with medium filter_level
     twitter_client.filter(filter_level: 'low', track: joined_topics ) do |object|
 
       tweet_topic = nil
@@ -42,8 +44,9 @@ class TwitterService
   end
 
   private
-    def self.parse_keywords(keywords)
 
+    # Summary: takes keywords as comma separated values and makes them trackable
+    def self.parse_keywords(keywords)
       #get into a list
       parsed_keywords = keywords.split(",")
 

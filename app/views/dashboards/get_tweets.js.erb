@@ -1,11 +1,13 @@
 
+
+
 var collectionSize = "<%= @tweets.size %>";
 
 var htmlForNewTweets = "<%= escape_javascript(render :partial => 'shared/tweet', collection: @tweets)%>";
 
 $(".content").prepend(htmlForNewTweets);
 
-$("#tweets-column").find('.tweet').each(function(index) {           // .each(function(index) {
+$("#tweets-column").find('.tweet').each(function(index) {
 
     if(index === collectionSize){
         return;

@@ -1,33 +1,40 @@
-//$("#checkboxes .checkbox").empty();
 
+// Clears the checkboxes when you set new keywords.
 $(".checkbox").remove();
 
-
+// Renders a checkbox for each keyword, which can then be filtered.
 var htmlForCheckBoxes = "<%= escape_javascript(render partial: 'shared/keyword', collection: @keywords) %>"
 
 $("#checkboxes .well").append(htmlForCheckBoxes);
 
+// key only gets set after we have successfully hit controller
 var key = "<%= @key %>";
 
+// Key is read from front-end rather than elsewhere because we want to create a new key each time the user
+// submits or resubmits the keyword form.
 $("#key").data("key", key);
 
+// Poll the controller every 10s for tweets that our key maps to
 window.setInterval(function(){
-    console.log(key);
+
+    // the dashboard key value is required so that we pull the right tweets.
     $.ajax({
         type: "GET",
-        url: '/dashboards/get_tweets', //sumbits it to the given url of the form
-        dataType: "script", // you want a difference between normal and ajax-calls, and json is standard
+        url: '/dashboards/get_tweets',
+        dataType: "script",
         data: {
             dashboard: {
-                key: $("#key").data("key")
+                key: key
             }
         }
     })
 
 }, 10000);
 
+// Hide / show tweets that correspond to a keyword on mousedown. It was necessary to use
+// .on("mousedown ...) rather than .on("click" ...) because the values have already changed
+// by the time you click. (mousedown and release)
 $("#checkboxes").on("mousedown", "input", function(event){
-
     var id = event.target.id;
 
     if($("#" + id).prop('checked')) {
@@ -37,5 +44,4 @@ $("#checkboxes").on("mousedown", "input", function(event){
         $("." + id).removeClass('hidden');
         $("." + id).addClass('shown');
     }
-
 })

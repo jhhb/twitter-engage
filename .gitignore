@@ -20,3 +20,6 @@ idea/
 idea
 workspace.xml
 .xml
+dump.rdb
+.DS_STORE
+DS_STORE
